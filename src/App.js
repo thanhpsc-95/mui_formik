@@ -1,5 +1,5 @@
 import './App.css';
-import { Box, Button, Container, createTheme, CssBaseline, Grid, TextField, Typography } from '@material-ui/core';
+import { Box, Button, Container, CssBaseline, Grid, Typography } from '@material-ui/core';
 import FormikTextField from './components/FormUI/FormikTextField';
 import { Form, Formik } from 'formik';
 import * as Yup from 'yup'
@@ -7,9 +7,10 @@ import FormikSelect from './components/FormUI/FormikSelect';
 import FormikDateTimePicker from './components/FormUI/FormikDateTimePicker';
 import FormikCheckbox from './components/FormUI/FormikCheckbox';
 import Fade from 'react-reveal/Fade';
-import * as locales from '@material-ui/core/locale';
 import React from 'react';
-import { Autocomplete } from '@material-ui/lab';
+import FormikAutocomplete from './components/FormUI/FormikAutoComplete';
+import FormikCKEditor from './components/FormUI/FormikCKEditor';
+import CloudaryUploader from './components/CloudaryUploader';
 
 const INITIAL_FORM_STATE = {
   firstName: '',
@@ -23,7 +24,9 @@ const INITIAL_FORM_STATE = {
   arrivalDate: null,
   departureDate: null,
   message: '',
-  termOfService: false
+  termOfService: false,
+  autocomplete: null,
+  editor1: "<p>Initial text</p>"
 }
 
 const FORM_VALIDATION = Yup.object().shape({
@@ -54,7 +57,9 @@ const FORM_VALIDATION = Yup.object().shape({
     .nullable(),
   termOfService: Yup.boolean()
     .oneOf([true], 'The terms and condition must be accepted')
-    .required('The terms and condition must be accepted')
+    .required('The terms and condition must be accepted'),
+  autocomplete: Yup.object().nullable()
+    .required('Required'),
 })
 
 const STATE = [
@@ -78,28 +83,31 @@ const CITY = [
     label: 'Hồ Chí Minh'
   },
 ]
-const theme = createTheme({
-}, locales.viVN);
+
+export const cities = [{
+  state: "Illinois",
+  name: "Chicago",
+  id: 3,
+}, {
+  state: "Texas",
+  name: "Houston",
+  id: 2
+}, {
+  state: "California",
+  name: "Los Angeles",
+  id: 1
+}, {
+  state: "New York",
+  name: "New York City",
+  id: 4
+}];
 const App = () => {
-  const [locale, setLocale] = React.useState('enUS');
+  const mappedCities = (cities && cities.map(city => ({ value: city.id, label: `${city.name} - ${city.state}` }))) || [];
   return (
     <Fade left>
       <CssBaseline />
       <Box my={3}>
         <Container maxWidth="md">
-          <Autocomplete
-            options={Object.keys(locales)}
-            getOptionLabel={(key) => `${key.substring(0, 2)}-${key.substring(2, 4)}`}
-            style={{ width: 300 }}
-            value={locale}
-            disableClearable
-            onChange={(event, newValue) => {
-              setLocale(newValue);
-            }}
-            renderInput={(params) => (
-              <TextField {...params} label="Locale" fullWidth variant="outlined" size="small" />
-            )}
-          />
           <Formik
             initialValues={INITIAL_FORM_STATE}
             validationSchema={FORM_VALIDATION}
@@ -156,6 +164,12 @@ const App = () => {
                     </Grid>
                     <Grid item xs={12}>
                       <FormikCheckbox name="termOfService" label="I agree" legend="Term Of Service" required></FormikCheckbox>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <FormikAutocomplete name="autocomplete" label="Test" options={mappedCities} required></FormikAutocomplete>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <FormikCKEditor name="editor1"></FormikCKEditor>
                     </Grid>
                     <Grid item xs={12}>
                       <Button type="submit">Submit</Button>
