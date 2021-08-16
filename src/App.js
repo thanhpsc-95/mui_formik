@@ -260,7 +260,7 @@ const App = () => {
                       name="departureDate"
                       label="Departure Date"
                       type="full"
-                      format="dd/MM/yyy HH:mm:ss"
+                      format="dd/MM/yyyy HH:mm:ss"
                     ></FormikDateTimePicker>
                   </Grid>
                   <Grid item xs={12}>
