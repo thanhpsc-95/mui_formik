@@ -17,8 +17,6 @@ import Fade from "react-reveal/Fade";
 import React from "react";
 import FormikAutocomplete from "./components/FormUI/FormikAutoComplete";
 import FormikCKEditor from "./components/FormUI/FormikCKEditor";
-import { isValid } from "date-fns";
-
 const INITIAL_FORM_STATE = {
   firstName: "",
   lastName: "",
@@ -157,7 +155,7 @@ const App = () => {
               console.log(values);
             }}
           >
-            {({ handleSubmit }) => (
+            {({ handleSubmit, touched, isValid }) => (
               <form noValidate onSubmit={handleSubmit}>
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
@@ -290,7 +288,16 @@ const App = () => {
                     <FormikCKEditor name="editor1"></FormikCKEditor>
                   </Grid>
                   <Grid item xs={12}>
-                    <Button type="submit" variant="contained" color="primary">
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      color="primary"
+                      disabled={
+                        !isValid ||
+                        (Object.keys(touched).length === 0 &&
+                          touched.constructor === Object)
+                      }
+                    >
                       Submit
                     </Button>
                   </Grid>
