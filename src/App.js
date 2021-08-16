@@ -17,6 +17,7 @@ import Fade from "react-reveal/Fade";
 import React from "react";
 import FormikAutocomplete from "./components/FormUI/FormikAutoComplete";
 import FormikCKEditor from "./components/FormUI/FormikCKEditor";
+
 const INITIAL_FORM_STATE = {
   firstName: "",
   lastName: "",
@@ -157,7 +158,7 @@ const App = () => {
           >
             {({ handleSubmit, touched, isValid }) => (
               <form noValidate onSubmit={handleSubmit}>
-                <Grid container spacing={2}>
+                <Grid container spacing={2} justifyContent="flex-start">
                   <Grid item xs={12}>
                     <Typography>Your details</Typography>
                   </Grid>
@@ -248,16 +249,18 @@ const App = () => {
                   <Grid item xs={12}>
                     <Typography>Booking information</Typography>
                   </Grid>
-                  <Grid item xs={12} sm={6} md={3}>
+                  <Grid item xs={12} sm={6} md={6}>
                     <FormikDateTimePicker
                       name="arrivalDate"
                       label="Arrival Date"
                     ></FormikDateTimePicker>
                   </Grid>
-                  <Grid item xs={12} sm={6} md={3}>
+                  <Grid item xs={12} sm={6} md={6}>
                     <FormikDateTimePicker
                       name="departureDate"
                       label="Departure Date"
+                      type="full"
+                      format="dd/MM/yyy HH:mm:ss"
                     ></FormikDateTimePicker>
                   </Grid>
                   <Grid item xs={12}>
