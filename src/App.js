@@ -17,6 +17,7 @@ import Fade from "react-reveal/Fade";
 import React from "react";
 import FormikAutocomplete from "./components/FormUI/FormikAutoComplete";
 import FormikCKEditor from "./components/FormUI/FormikCKEditor";
+import { isValid } from "date-fns";
 
 const INITIAL_FORM_STATE = {
   firstName: "",
@@ -156,27 +157,27 @@ const App = () => {
               console.log(values);
             }}
           >
-            {({ handleSubmit, isValid }) => (
+            {({ handleSubmit }) => (
               <form noValidate onSubmit={handleSubmit}>
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
                     <Typography>Your details</Typography>
                   </Grid>
-                  <Grid item xs={6} md={3}>
+                  <Grid item xs={12} sm={6} md={3}>
                     <FormikTextField
                       name="firstName"
                       label="First Name"
                       required
                     ></FormikTextField>
                   </Grid>
-                  <Grid item xs={6} md={3}>
+                  <Grid item xs={12} sm={6} md={3}>
                     <FormikTextField
                       name="lastName"
                       label="Last Name"
                       required
                     ></FormikTextField>
                   </Grid>
-                  <Grid item xs={6} md={3}>
+                  <Grid item xs={12} sm={6} md={3}>
                     <FormikTextField
                       name="email"
                       label="Email"
@@ -184,20 +185,20 @@ const App = () => {
                       required
                     ></FormikTextField>
                   </Grid>
-                  <Grid item xs={6} md={3}>
+                  <Grid item xs={12} sm={6} md={3}>
                     <FormikTextField
                       name="phone"
                       label="Phone"
                     ></FormikTextField>
                   </Grid>
-                  <Grid item xs={6} md={3}>
+                  <Grid item xs={12} sm={6} md={3}>
                     <FormikTextField
                       name="username"
                       label="Username"
                       required
                     ></FormikTextField>
                   </Grid>
-                  <Grid item xs={6} md={3}>
+                  <Grid item xs={12} sm={6} md={3}>
                     <FormikTextField
                       name="password"
                       label="Password"
@@ -205,7 +206,7 @@ const App = () => {
                       required
                     ></FormikTextField>
                   </Grid>
-                  <Grid item xs={6} md={3}>
+                  <Grid item xs={12} sm={6} md={3}>
                     <FormikTextField
                       name="confirmPassword"
                       label="Confirm password"
@@ -217,20 +218,20 @@ const App = () => {
                   <Grid item xs={12}>
                     <Typography>Address</Typography>
                   </Grid>
-                  <Grid item xs={6} md={3}>
+                  <Grid item xs={12} sm={6} md={3}>
                     <FormikTextField
                       name="addressLine1"
                       label="Address Line 1"
                       required
                     ></FormikTextField>
                   </Grid>
-                  <Grid item xs={6} md={3}>
+                  <Grid item xs={12} sm={6} md={3}>
                     <FormikTextField
                       name="addressLine2"
                       label="Address Line 2"
                     ></FormikTextField>
                   </Grid>
-                  <Grid item xs={6} md={3}>
+                  <Grid item xs={12} sm={6} md={3}>
                     <FormikSelect
                       name="city"
                       label="City"
@@ -238,7 +239,7 @@ const App = () => {
                       options={CITY}
                     ></FormikSelect>
                   </Grid>
-                  <Grid item xs={6} md={3}>
+                  <Grid item xs={12} sm={6} md={3}>
                     <FormikSelect
                       name="state"
                       label="State"
@@ -249,13 +250,13 @@ const App = () => {
                   <Grid item xs={12}>
                     <Typography>Booking information</Typography>
                   </Grid>
-                  <Grid item xs={6} md={3}>
+                  <Grid item xs={12} sm={6} md={3}>
                     <FormikDateTimePicker
                       name="arrivalDate"
                       label="Arrival Date"
                     ></FormikDateTimePicker>
                   </Grid>
-                  <Grid item xs={6} md={3}>
+                  <Grid item xs={12} sm={6} md={3}>
                     <FormikDateTimePicker
                       name="departureDate"
                       label="Departure Date"
@@ -289,12 +290,7 @@ const App = () => {
                     <FormikCKEditor name="editor1"></FormikCKEditor>
                   </Grid>
                   <Grid item xs={12}>
-                    <Button
-                      type="submit"
-                      disabled={!isValid}
-                      variant="contained"
-                      color="primary"
-                    >
+                    <Button type="submit" variant="contained" color="primary">
                       Submit
                     </Button>
                   </Grid>
